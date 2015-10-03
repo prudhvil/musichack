@@ -102,7 +102,7 @@ class SongServer(object):
             'k': fields.Int(default=10, required=False),
         })
         def get_next(args):
-            distances, neighbors = self.nbrs.kneighbors(self.topics[args['current_id']], n_neighbors=500)
+            distances, neighbors = self.nbrs.kneighbors(self.topics[args['current_id']], n_neighbors=100)
             neighbors = neighbors[0, 1:]
             if args['end_id'] in neighbors:
                 chosen = args['end_id']
