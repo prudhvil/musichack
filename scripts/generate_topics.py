@@ -6,6 +6,7 @@ from path import Path
 import gensim
 from tqdm import tqdm
 import cPickle as pickle
+from scipy import sparse
 
 
 def parse_args():
@@ -29,7 +30,8 @@ if __name__ == "__main__":
         for i, line in enumerate(fp):
             words[i] = line.strip()
     lda = gensim.models.ldamulticore.LdaMulticore(corpus, id2word=words,
-                                                    num_topics=args.num_topics)
+                                                    num_topics=args.num_topics,
+                                                  passes=5)
     transformed = lda[corpus]
 
     mat = np.zeros((len(corpus), args.num_topics))
@@ -37,4 +39,4 @@ if __name__ == "__main__":
         for topic, prob in doc:
             mat[i][topic] = prob
     with open(data_dir / 'lda.mat', 'wb') as fp:
-        pickle.dump(mat, fp)
+        pickle.dump(sparse.csr_matrix(mat), fp)
