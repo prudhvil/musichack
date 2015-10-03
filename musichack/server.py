@@ -28,7 +28,7 @@ class SongServer(object):
                 self.name_map[fixed_name].add((self.mid_to_id[mid], name, song[0]))
                 self.autocomplete.insert(fixed_name)
 
-        app = self.app = Flask(__name__)
+        app = self.app = Flask(__name__, static_url_path='', static_folder='static/')
         def jsonp(f):
             """Wraps JSONified output for JSONP"""
             @wraps(f)
@@ -40,6 +40,10 @@ class SongServer(object):
                 else:
                     return f(*args, **kwargs)
             return decorated_function
+
+        @app.route('/')
+        def index():
+            return app.send_static_file('index.html')
 
         @app.route('/api/get_id/<int:id>')
         @jsonp

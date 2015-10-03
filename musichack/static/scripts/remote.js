@@ -6,9 +6,9 @@ var bestPictures = new Bloodhound({
     ajax : {
       dataType: 'jsonp'
     },
+    transform: function(obj) { return obj.result; },
   },
   identify: function(obj) { return obj.id },
-  transform: function(obj) { return obj.results; },
   datumTokenizer: Bloodhound.tokenizers.whitespace,
   queryTokenizer: Bloodhound.tokenizers.whitespace
 });
@@ -17,7 +17,8 @@ $('#tosong').typeahead(null, {
   name: 'song',
   display: 'name',
   source: bestPictures,
-  templates : {
-    suggestion: "<div>{{name}} - {{artist}}</div>"
-  }
+  display: function(obj) { return obj.name +" - " + obj.artist},
+  //templates : {
+    //suggestion: function(obj) { console.log(obj); return "<div>" + obj.name +" - " + obj.artist + "</div>"}
+  //}
 });
