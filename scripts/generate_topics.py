@@ -1,10 +1,12 @@
 import logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 import numpy as np
-import cPickle as pickle
 from argparse import ArgumentParser
 from path import Path
-from lda import LDA
+import gensim
+from tqdm import tqdm
+import cPickle as pickle
+from scipy import sparse
 
 
 def parse_args():
@@ -20,15 +22,21 @@ if __name__ == "__main__":
     args = parse_args()
 
     data_dir = Path(args.data_dir)
-    model = LDA(n_topics=args.num_topics,
-                n_iter=args.num_iterations)
 
-    with open(data_dir / 'lyrics.pkl', 'rb') as fp:
-        ids, words, mat = pickle.load(fp)
+    corpus = gensim.corpora.bleicorpus.BleiCorpus(data_dir / 'lyrics.ldac',
+                                                  data_dir / 'lyrics.vocab')
+    words = {}
+    with open(data_dir / 'lyrics.vocab') as fp:
+        for i, line in enumerate(fp):
+            words[i] = line.strip()
+    lda = gensim.models.ldamulticore.LdaMulticore(corpus, id2word=words,
+                                                    num_topics=args.num_topics,
+                                                  passes=5)
+    transformed = lda[corpus]
 
-    topic_mat = model.fit_transform(mat[:1000])
-
-    topic_word = model.topic_word_
-    for i, topic_dist in enumerate(topic_word):
-        topic_words = np.array(words)[np.argsort(topic_dist)][:-8:-1]
-        print('Topic {}: {}'.format(i, ' '.join(topic_words)))
+    mat = np.zeros((len(corpus), args.num_topics))
+    for i, doc in tqdm(enumerate(transformed)):
+        for topic, prob in doc:
+            mat[i][topic] = prob
+    with open(data_dir / 'lda.mat', 'wb') as fp:
+        pickle.dump(sparse.csr_matrix(mat), fp)
