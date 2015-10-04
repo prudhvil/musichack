@@ -2,6 +2,8 @@ var Graph = (function() {
     var apiUrl = 'http://svikram.ucsd.edu';
 
     var G, startId, endId, currId,nextId;
+    var onEnd;
+    var onSong;
     var tooltip;
     var delay = 100;
 
@@ -34,7 +36,6 @@ var Graph = (function() {
     }
 
     var requestNeighbors = function(id) {
-      console.log("Requesting neighbors for ", id)
         makeGetRequest('/api/get_neighbors?id='+id+'&k=3', function(data) {
             graphNeighbors(id, data.result)
         }, onFailure)
@@ -79,29 +80,34 @@ var Graph = (function() {
           makeGetRequest('/api/get_id?id='+nodeId, function(data) {
             tooltip.transition().duration(200).style('opacity', 0.9);
 
-            console.log("<div>"+data.result.name+"<img src='"+data.result.artwork['100']+"'/></img></div>");
             tooltip.html("<div>"+data.result.name+"<img src='"+data.result.artwork['100']+"'/></img></div>").
             style("left", x+"px").style("top", y+"px");
-            console.log(tooltip, x, y);
 
           }, onFailure);
         }).on("mouseout", function(d) {
           tooltip.transition().duration(200).style('opacity', 0);
         }).on("click", function(d) {
-          d3.select(this).classed('expanded', true);
+          d3.select(this).style('fill', 'blue');
           requestNeighbors(d.node);
         });
     }
 
     var graphNext = function(nextId) {
-      G.addNode(nextId,{'fill': '#00CC00', 'radius': 10, 'id': nextId});
+      onSong(nextId);
+      G.addNode(nextId,{'fill': '#00CC00', 'radius': 20, 'id': nextId});
       addTipsy(nextId);
       G.addEdge(currId,nextId,{'width': 6, 'length': 100, 'color':'white'});
       currId = nextId;
-      if (currId != endId) requestNext();
+      if (currId != endId) {
+        requestNext();
+      } else {
+        onEnd();
+      }
     }
 
-    var start = function(start, end) {
+    var start = function(start, end, cb, endCb) {
+        onSong = cb;
+        onEnd = endCb;
         startId = start.id;
         endId = end.id;
         G = new jsnx.Graph()
@@ -144,6 +150,7 @@ var Graph = (function() {
 
 
         G.addNode(startId,{'radius': 10, 'id': startId, 'fill': 'pink'});
+        onSong(startId);
         d3.select("[nodeid='"+startId+"']").each(function(d) {
           d.fixed = true;
           d.x = 0;

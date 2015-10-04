@@ -25,6 +25,10 @@ def get_video(song):
         return video_cache[song]
     song_html = requests.get(YOUTUBE_URL % ("%s %s" % (song[0].lower(), song[1].lower()))).text
     soup = BeautifulSoup(song_html, 'html.parser')
-    href = soup.find_all('ol', {'class': 'section-list'})[0].find('a').attrs['href']
-    vid_id = href.split('=')[1]
-    return vid_id
+    links = soup.find_all('ol', {'class': 'section-list'})[0].find_all('a')
+    for link in links:
+        href = link['href']
+        if 'watch' not in href:
+            continue
+        vid_id = href.split('=')[1]
+        return vid_id

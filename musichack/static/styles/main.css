@@ -40,7 +40,7 @@ h3 {
 
 #canvas {
    height: 100%;
- }
+}
 .fa {
   color: #fff;
 }
@@ -85,6 +85,7 @@ input[type=text]
 }
 
 #holder {
+  width: 80%;
   margin-top: 75px;
   margin-left: 20px; 
   margin-right: 230px; 
@@ -105,11 +106,11 @@ input[type=text]
 }
 
 .songtitle {
-  font-size: 10px;
+  font-size: 16px;
 }
 
 .songartist {
-  font-size: 9px;
+  font-size: 14px;
 }
 
 .playlistSong {
@@ -190,7 +191,4 @@ input[type=text]
 
 .tt-suggestion p {
   margin: 0;
-}
-.node.expanded {
-   fill: blue;
 }
