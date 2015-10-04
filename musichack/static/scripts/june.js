@@ -1,5 +1,8 @@
+var fromSong, toSong;
 function unhideTo() {
-    $("div#to").removeClass("hidden");
+  $("#to").fadeIn(300).complete(function() {
+    $("#to").focus();
+  });
 }
 
 
@@ -16,23 +19,14 @@ function scrollDown() {
 
 }
 
-$( '#from' ).keyup(function(e) {
-    if (e.which == 13) {
-        $("div#to").focus().fadeIn(300);
-        unhideTo();
-        $("#end").focus();
-    return false;
-  }
-  
+$('#from').bind('typeahead:autocompleted typeahead:selected', function(obj, datum, name) {
+  fromSong = datum;
+  unhideTo();
 });
 
-$( '#to' ).keyup(function(e) {
-    if (e.which == 13) {
-        scrollDown();
-    return false;
-  }
-  
+$('#to').bind('typeahead:autocompleted typeahead:selected', function(obj, datum, name) {
+  toSong = datum;
+  scrollDown();
+
+  // TODO: make graph query
 });
-
-
-

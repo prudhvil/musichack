@@ -14,7 +14,16 @@ var bestPictures = new Bloodhound({
 });
 
 $('#tosong').typeahead(null, {
-  name: 'song',
+  name: 'tosong',
+  display: 'name',
+  source: bestPictures,
+  display: function(obj) { return obj.name +" - " + obj.artist},
+  //templates : {
+    //suggestion: function(obj) { console.log(obj); return "<div>" + obj.name +" - " + obj.artist + "</div>"}
+  //}
+});
+$('#fromsong').typeahead(null, {
+  name: 'fromsong',
   display: 'name',
   source: bestPictures,
   display: function(obj) { return obj.name +" - " + obj.artist},
