@@ -29,3 +29,12 @@ $('#fromsong').typeahead(null, {
     //suggestion: function(obj) { console.log(obj); return "<div>" + obj.name +" - " + obj.artist + "</div>"}
   //}
 });
+$('#exploresong').typeahead(null, {
+  name: 'exploresong',
+  display: 'name',
+  source: bestPictures,
+  display: function(obj) { return obj.name +" - " + obj.artist},
+  //templates : {
+    //suggestion: function(obj) { console.log(obj); return "<div>" + obj.name +" - " + obj.artist + "</div>"}
+  //}
+});

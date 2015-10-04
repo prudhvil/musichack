@@ -23,13 +23,6 @@ header {
   margin-top: 20px;
 }
 
-.explore {
-  width: 40%;
-  float: left;
-  border-color: #fff;
-  border-style: solid;
-}
-
 .title {
   font-family: Oswald;
   font-size: 10.00em;
@@ -46,11 +39,19 @@ header {
   height: 100px;
 }
 
-#explore {
+.names-small {
+  font-family: Raleway;
+  font-size: 3.00em;
+  font-weight: 200;
+  color: #fff;
+  height: 100px;
+}
+
+.explore {
   color: #66D9EF;
 }
 
-#playlist {
+.travel {
   color: #f92672;
 }
 
@@ -254,4 +255,7 @@ input[type=text]
 .playlist-image {
   width: 100px;
   height: 100px;
+}
+#second {
+   display: none;
 }
