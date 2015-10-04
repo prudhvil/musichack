@@ -2,13 +2,11 @@
 <html>
 	<head>
 		<script src="scripts/d3/d3.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="scripts/jsnetworkx.js"></script>
+		<script src="scripts/d3/d3.js" charset="utf-8"></script>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="styles/main.css">
-		<link rel="stylesheet" href="styles/main_graph.css">
-		<link rel="stylesheet" href="styles/tipsy.css">
-		<link href="http://fonts.googleapis.com/css?family=Oswald:700|Raleway:400" rel="stylesheet" type="text/css">
+		<link href="http://fonts.googleapis.com/css?family=Oswald:700|Raleway:300" rel="stylesheet" type="text/css">
 		<!-- Fontawesome -->
 
 		<link rel="stylesheet" href="scripts/font-awesome/css/font-awesome.min.css">
@@ -25,6 +23,8 @@
 
 	<body id="page-top">
 
+<!-- Navbar -->
+
 	    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
 	        <div class="container-fluid">
 
@@ -32,57 +32,38 @@
 	                <a class="navbar-brand page-scroll hidden" href="#page-top" id="logo">TP</a>
 	            </div>
 
+	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	                <ul class="nav navbar-nav navbar-right">
+	                    <li>
+	                        <a class="page-scroll" href="#about">examples</a>
+	                    </li>
+
+	                    <li>
+	                        <a class="page-scroll" href="#contact">about</a>
+	                    </li>
+	                </ul>
+	            </div>
 	        </div>
 	    </nav> 
 
-	    <div id="first">
-			<header>tunepath</header>
-			<h4 class="map">map your music</h4>
+	
+<!-- Body code -->
 
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-4" id="from">
-						<input id='fromsong' class="typeahead" type="text"  placeholder="Starting with this song">
-					</div>
-				</div>
-				<div class="page-break"></div>
-				<div class="row">
-
-					<div class="col-sm-4" id="to" style="display:none">
-						<input id="tosong" class="typeahead" type="text" placeholder="And end with this song">
-					</div>
-				</div>	
-				<div class="row">
-					<div class="social">
-						<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://svikram.ucsd.edu/tunepath" data-count="none">Tweet</a>
-						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-					</div>
-				</div>
-			</div>
-
+		<div id="Examples" class="textBox">
+			<h1>Below are just some examples of playlists that tunepath has made</h1>
 			
-		</div>
-
-<!-- Header code -->
-
-		<div id="second" class="hidden">
 		</div>
 
 <!-- Sidebar code -->
 
-		<div id="sidebar" class="hidden scrollable">
-		    
-		    <div style='clear:both'></div>
-		</div>
-
-		<div id='ytplayer'></div>
 
 <!-- Graph is below -->
 
 		<div id="graph" class="hidden container-fluid">
 			<div id="holder" class="row">
-				<div class="col-lg-10" style="height: 100%">
-					<div id='canvas'>
+				<div class="col-lg-10">
+					<div>
+						Graph goes here
 					</div>
 				</div>
 			</div>
@@ -109,7 +90,6 @@
 
 	    <script src="scripts/creative.js"></script>
 	    <script src="scripts/june.js"></script>
-      <script type="text/javascript" src="scripts/graph.js"></script>
 
 	</body>
 </html>
