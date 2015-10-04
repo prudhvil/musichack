@@ -73,6 +73,13 @@ input[type=text]
   margin-top: 25px;
 }
 
+#id {
+  width: 300px;
+  padding: 25px;
+  border: 25px solid navy;
+  margin: 25px;
+}
+
 /*NAVBAR CODE BELOW*/
 
 .navbar-default {
