@@ -94,14 +94,33 @@ $(document).ready(function() {
         loadYoutube([data.result])
       })
     });
-  }
+  };
 
   $('#tosong').bind('typeahead:autocompleted typeahead:selected', function(obj, datum, name) {
     toSong = datum;
-    //scrollDown();
-
     loadAdventureGraph(fromSong.id, toSong.id);
   });
 
-  //loadAdventureGraph(3, 5);
+  $('#exploresong').bind('typeahead:autocompleted typeahead:selected', function(obj, datum, name) {
+    loadExploreGraph(datum.id);
+  });
+
+  var loadExploreGraph = function(start) {
+    $("#graph-header").text("explore");
+    $("#graph-header").removeClass("travel");
+    $("#graph-header").addClass("explore");
+    $("#first").hide()
+    $("#second").show()
+    var finished = false;
+    Graph.explore({id:start}, function(songId) {
+      $.getJSON("/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
+        loadYoutube([data.result])
+       })
+    });
+  }
+
+  $("#home-link").click(function() {
+    $("#second").hide()
+    $("#first").show()
+  });
 });
