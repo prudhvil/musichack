@@ -125,6 +125,7 @@ var Graph = (function() {
         onSong = cb;
         onEnd = endCb;
         onDblClick = dblCb
+
         startId = start.id;
         endId = end.id;
         G = new jsnx.Graph()
@@ -133,7 +134,7 @@ var Graph = (function() {
 
 
         jsnx.draw(G, {
-          element: '#canvas',
+          element: '#graph',
           weighted: false,
           withLabels: false,
           nodeStyle: {
