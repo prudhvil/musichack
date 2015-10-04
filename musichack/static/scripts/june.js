@@ -3,11 +3,12 @@ $(document).ready(function() {
   d3.select("body").append("div").attr("id", "tooltip").style("opacity", 0);
   var fromSong, toSong;
   var songs = [];
-  var apiUrl = 'http://svikram.ucsd.edu';
+  var apiUrl = '';
   function unhideTo() {
     $("#to").fadeIn(300, function() {
       $("#tosong").focus();
     });
+    $("#lucky2").hide();
   }
 
   function loadYoutube(songs) {

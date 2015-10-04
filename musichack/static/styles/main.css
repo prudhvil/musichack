@@ -293,6 +293,9 @@ input[type=text]
   background-color: rgba(102, 217, 239, 0.37);
   border-color: rgba(102, 217, 239, 0.50);
 }
+.stupidbutton2 {
+  width: 110% !important;
+}
 .stupidbutton:focus {
   background-color: rgba(102, 217, 239, 0.37);
   border-color: rgba(102, 217, 239, 0.50);
