@@ -1,9 +1,3 @@
-function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
-          done = true;
-        }
-      }
 $(document).ready(function() {
 
   d3.select("body").append("div").attr("id", "tooltip").style("opacity", 0);
@@ -55,8 +49,8 @@ $(document).ready(function() {
         youtube: "http://www.youtube.com/watch?v="+song.youtube,
       });
       $('#playlist').append(elem);
-      elem.slideDown(300);
-      $('html, body').animate({scrollTop: '+=150px'}, 800);
+      elem.slideDown(300)
+      $('html, body').animate({scrollTop: '+=153px'}, 800);
       $(".sidebar").animate({scrollTop: '+=300px'}, 300);
       cb();
     });
@@ -156,5 +150,5 @@ $(document).ready(function() {
     $("#second").hide()
     $("#first").show()
   });
-  //$("#to").hide();
+  $("#to").hide();
 });
