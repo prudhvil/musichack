@@ -5,6 +5,7 @@ from webargs import fields
 from webargs.flaskparser import use_args
 from trie import Trie
 from functools import wraps
+import artwork
 
 class SongServer(object):
 
@@ -49,12 +50,14 @@ class SongServer(object):
         @jsonp
         def get_id(id):
             song = self.song_mapping[self.ids[id]]
+            aw = artwork.get_artwork(song)
             return jsonify(**{
                 'status': 1,
                 'result': {
                     'id': id,
                     'name': song[1],
                     'artist': song[0],
+                    'artwork': aw
                 }
             })
 
