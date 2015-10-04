@@ -43,13 +43,16 @@ $(document).ready(function() {
       if (!artwork) {
         artwork = "/img/no_album_art.png";
       }
-      var elem = $("<div></div>").loadTemplate($("#playlisttemplate"), {
+      var elem = $("<div style='display: none'></div>").loadTemplate($("#playlisttemplate"), {
         name: song.name,
         artist: song.artist,
         artwork: artwork,
         youtube: "http://www.youtube.com/watch?v="+song.youtube,
       });
       $('#playlist').append(elem);
+      elem.slideDown(300);
+      $('html, body').animate({scrollTop: '+=150px'}, 800);
+      $(".sidebar").animate({scrollTop: '+=300px'}, 300);
       cb();
     });
   }
