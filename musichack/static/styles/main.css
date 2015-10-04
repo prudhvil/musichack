@@ -111,6 +111,10 @@ input[type=text]
 #graph {
   width: 100%;
   height: 100vh;
+  border-color: #C1C1C1;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 20px;
 }
 
 .songtitle {
@@ -221,6 +225,7 @@ input[type=text]
 }
 .playlist-item {
   padding:10px;
+  border-top: 2px solid #979797;
 }
 .playlist-item:hover {
   background-color: gray;

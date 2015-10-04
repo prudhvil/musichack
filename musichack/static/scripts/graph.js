@@ -85,8 +85,9 @@ var Graph = (function() {
           var x = d3.event.pageX, y = d3.event.pageY;
           makeGetRequest('/api/get_id?youtube=false&id='+nodeId, function(data) {
             tooltip.transition().duration(100).style('opacity', 0.9);
+            artwork = data.result.artwork['100'] || '/img/no_album_art.png'
 
-            tooltip.html("<div class='tooltipdialog'><div class='tooltipsong'>"+data.result.name+"</div><div class='tooltipimage'><img src='"+data.result.artwork['100']+"'/></img></div></div>").
+            tooltip.html("<div class='tooltipdialog'><div class='tooltipsong'>"+data.result.name+"</div><div class='tooltipimage'><img style='width:100px;height:100px;' src='"+artwork+"'/></img></div></div>").
             style("left", x+"px").style("top", y+"px");
 
           }, onFailure);

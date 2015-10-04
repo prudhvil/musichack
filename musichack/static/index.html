@@ -18,7 +18,7 @@
 <!-- Plugin CSS -->
 <link rel="stylesheet" href="styles/animate.min.css" type="text/css">
 
-<title>TunePath</title>
+<title>tunepath</title>
 
 
 
@@ -27,7 +27,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">TunePath</a>
+      <a class="navbar-brand" href="#">tunepath</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
@@ -41,24 +41,26 @@
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
       <div id='youtubeplayer'></div>
-      <ul id='playlist' class="nav nav-sidebar">
-        <script type="text/html" id="playlisttemplate">
-          <li class='playlist-item' data-link='youtube'>
-            <div class='playlist-item-container'>
-              <div class='playlist-image-container'>
-                <img class='playlist-image' data-src="artwork"/>
+      <div>
+        <ul id='playlist' class="nav nav-sidebar">
+          <script type="text/html" id="playlisttemplate">
+            <li class='playlist-item' data-link='youtube'>
+              <div class='playlist-item-container'>
+                <div class='playlist-image-container'>
+                  <img class='playlist-image' data-src="artwork"/>
+                </div>
+                <div class='playlist-content'>
+                  <div class='playlist-name' data-content="name"></div>
+                  <div class='playlist-artist' data-content="artist"></div>
+                </div>
               </div>
-              <div class='playlist-content'>
-                <div class='playlist-name' data-content="name"></div>
-                <div class='playlist-artist' data-content="artist"></div>
-              </div>
-            </div>
-          </li>
-        </script>
-      </ul>
+            </li>
+          </script>
+        </ul>
+      </div>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-      <h1 id='main-header' class="page-header">Explore</h1>
+      <h1 id='main-header' class="page-header">explore</h1>
       <div id='graph'>
       </div>
     </div>
