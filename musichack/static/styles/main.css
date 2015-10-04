@@ -37,6 +37,10 @@ h3 {
   padding-top: 35px;
 }
 
+#canvas {
+   height: 100%;
+}
+
 #first {
   margin-left: 20em;
   margin-top: 10em;
@@ -81,7 +85,7 @@ input[type=text]
   margin-left: 20px; 
   margin-right: 230px; 
   background-color: #000;
-  height: 80%;
+  height: 100%;
 }
 
 #sidebar {
@@ -93,6 +97,7 @@ input[type=text]
 
 #graph {
   color: white;
+  height:800px;
 }
 
 .songtitle {
@@ -182,4 +187,7 @@ input[type=text]
 
 .tt-suggestion p {
   margin: 0;
+}
+.node.expanded {
+   fill: blue;
 }

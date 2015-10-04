@@ -31,4 +31,5 @@ $('#to').bind('typeahead:autocompleted typeahead:selected', function(obj, datum,
   scrollDown();
 
   // TODO: make graph query
+  Graph.start(fromSong, toSong);
 });

@@ -1,5 +1,5 @@
 var Graph = (function() {
-    var apiUrl = 'http://svikram.ucsd.edu'; 
+    var apiUrl = 'http://svikram.ucsd.edu';
 
     var G, startId, endId, currId,nextId;
     var tooltip;
@@ -59,12 +59,12 @@ var Graph = (function() {
           G.addNode(nId,{'fill': '#999', 'radius': 5, 'id': nId});
           addTipsy(nId);
         }
-        if (!G.hasEdge(id,nId)) G.addEdge(id,nId,{'width': 2, 'length': 100});
+        if (!G.hasEdge(id,nId)) G.addEdge(id,nId,{'width': 2, 'length': 100, 'color':'white'});
 
         if (Math.random() > 0.7) {
           requestNeighbors(nId);
         }
-        
+
         if(neighbors.length != 0)  {
           setTimeout(neighborsHelper, delay);
         }
@@ -88,7 +88,7 @@ var Graph = (function() {
         }).on("mouseout", function(d) {
           tooltip.transition().duration(200).style('opacity', 0);
         }).on("click", function(d) {
-          console.log("Requesting neighbors of ", d.node)
+          d3.select(this).classed('expanded', true);
           requestNeighbors(d.node);
         });
     }
@@ -96,21 +96,21 @@ var Graph = (function() {
     var graphNext = function(nextId) {
       G.addNode(nextId,{'fill': '#00CC00', 'radius': 10, 'id': nextId});
       addTipsy(nextId);
-      G.addEdge(currId,nextId,{'width': 6, 'length': 100});
+      G.addEdge(currId,nextId,{'width': 6, 'length': 100, 'color':'white'});
       currId = nextId;
       if (currId != endId) requestNext();
     }
 
-    var start = function() {
+    var start = function(start, end) {
+        startId = start.id;
+        endId = end.id;
         G = new jsnx.Graph()
-        startId = 185890;
-        endId = 198986;
         currId = startId;
         tooltip = d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
 
 
         jsnx.draw(G, {
-          element: '#canvas',  
+          element: '#canvas',
           weighted: false,
           withLabels: false,
           nodeStyle: {
@@ -129,27 +129,33 @@ var Graph = (function() {
                     return d.data.mouseover;
                   },
           },
-          edgeStyle: { 
+          edgeStyle: {
             'stroke-width': function(d) {
                     return d.data.width;
-                  }, 
+                  },
             'stroke-length': function(d) {
                     return d.data.length;
+                  },
+            'fill': function(d) {
+                    return d.data.color;
                   }
           }
         }, true);
 
 
-        G.addNode(startId,{'fill': '#00CC00', 'radius': 10, 'id': startId});
-        d3.select("[nodeid='"+startId+"']").each(function(d) {d.fixed = true});
+        G.addNode(startId,{'radius': 10, 'id': startId, 'fill': 'pink'});
+        d3.select("[nodeid='"+startId+"']").each(function(d) {
+          d.fixed = true;
+          d.x = 0;
+          d.y = 0;
+        }) ;
         addTipsy(startId);
-        //G.addNode(endId,{'fill': '#00CC00'});
 
         requestNext();
     };
-    
+
     return {
         start: start
     };
-    
+
 })();

@@ -6,9 +6,9 @@ var bestPictures = new Bloodhound({
     dataType: 'jsonp',
     transform: function(obj) { return obj.result; },
   },
-  identify: function(obj) { return obj.id },
   datumTokenizer: Bloodhound.tokenizers.whitespace,
-  queryTokenizer: Bloodhound.tokenizers.whitespace
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  limit: 20,
 });
 
 $('#tosong').typeahead(null, {

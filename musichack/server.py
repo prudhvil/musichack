@@ -10,6 +10,7 @@ import artwork
 class SongServer(object):
 
     def __init__(self, nbrs, topics, ids, song_mapping):
+        self.song_cache = {}
         self.nbrs = nbrs
         self.topics = topics
         self.ids = ids
@@ -46,20 +47,29 @@ class SongServer(object):
         def index():
             return app.send_static_file('index.html')
 
-        @app.route('/api/get_id/<int:id>')
+        @app.route('/api/get_id')
         @jsonp
-        def get_id(id):
-            song = self.song_mapping[self.ids[id]]
+        @use_args({
+            'id': fields.Int(required=True),
+        })
+        def get_id(args):
+            if args['id'] in self.song_cache:
+                return jsonify(**self.song_cache[args['id']])
+            song = self.song_mapping[self.ids[args['id']]]
             aw = artwork.get_artwork(song)
-            return jsonify(**{
+            youtube_id = artwork.get_video(song)
+            result = {
                 'status': 1,
                 'result': {
-                    'id': id,
+                    'id': args['id'],
                     'name': song[1],
                     'artist': song[0],
-                    'artwork': aw
+                    'artwork': aw,
+                    'youtube': youtube_id,
                 }
-            })
+            }
+            self.song_cache[args['id']] = result
+            return jsonify(**result);
 
         @app.route('/api/get_neighbors')
         @jsonp
@@ -86,7 +96,7 @@ class SongServer(object):
                     'status': 1,
                     'result': []
                 })
-            results = self.autocomplete.autocomplete(args['name'])
+            results = self.autocomplete.autocomplete(args['name'].lower())
             final_results = []
             for result in results:
                 for final_result in list(self.name_map[result]):
@@ -97,7 +107,7 @@ class SongServer(object):
                     })
             return jsonify(**{
                 'status': 1,
-                'result': final_results[:10]
+                'result': final_results
             })
 
 
