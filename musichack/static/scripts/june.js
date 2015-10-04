@@ -28,6 +28,7 @@ function scrollDown() {
     $("div#to").detach().prependTo('#second');
     $("div#from").detach().prependTo('#second');
 
+
 }
 
 $('#from').bind('typeahead:autocompleted typeahead:selected', function(obj, datum, name) {

@@ -66,6 +66,8 @@ input[type=text]
     padding-left:10px;
     margin-left: -15px;
     width: 350px;
+    z-index: 999;
+    position: fixed;
   
 }
 
@@ -83,6 +85,7 @@ input[type=text]
    margin-top: 10px;
    text-align: center;
    margin-left: 100px;
+   position: relative;
 }
 
 .social {
@@ -127,6 +130,12 @@ input[type=text]
   margin-top: 75px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+#logo {
+  width: 200px;
+  margin-bottom: 20px;
+  margin-left: 20px;
 }
 
 /*NAVBAR CODE BELOW*/
