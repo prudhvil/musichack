@@ -2,7 +2,8 @@ $(document).ready(function() {
 
   d3.select("body").append("div").attr("id", "tooltip").style("opacity", 0);
   var fromSong, toSong;
-  var songs = []
+  var songs = [];
+  var apiUrl = 'http://svikram.ucsd.edu';
   function unhideTo() {
     $("#to").fadeIn(300, function() {
       $("#tosong").focus();
@@ -24,7 +25,7 @@ $(document).ready(function() {
 
   var getId = function(id, youtube, cb) {
     youtube = youtube || false;
-    $.ajax('/api/get_id', {
+    $.ajax(apiUrl+'/api/get_id', {
       dataType: 'jsonp',
       data: {
         id: id,
@@ -96,7 +97,7 @@ $(document).ready(function() {
     }, function() {
       finished = true;
     }, function(songId) {
-      $.getJSON("/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
+      $.getJSON(apiUrl+"/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
         loadYoutube([data.result])
       })
     });
@@ -116,6 +117,10 @@ $(document).ready(function() {
     luckyGraph();
   });
 
+  $("#lucky2").click(function() {
+    lucky2Graph();
+  });
+
   var loadExploreGraph = function(start) {
     clearSongs();
     $("#graph-header").text("explore");
@@ -125,7 +130,7 @@ $(document).ready(function() {
     $("#second").show()
     var finished = false;
     Graph.explore({id:start}, function(songId) {
-      $.getJSON("/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
+      $.getJSON(apiUrl+"/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
         loadYoutube([data.result])
        })
     });
@@ -139,10 +144,16 @@ $(document).ready(function() {
     $("#first").hide()
     $("#second").show()
     Graph.lucky(function(songId) {
-      $.getJSON("/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
+      $.getJSON(apiUrl+"/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
         loadYoutube([data.result])
        })
     });
+  }
+
+  var lucky2Graph = function() {
+    start = Math.floor(Math.random() * 200000);
+    end = Math.floor(Math.random() * 200000);
+    loadAdventureGraph(start,end);
   }
 
   $("#home-link").click(function() {
