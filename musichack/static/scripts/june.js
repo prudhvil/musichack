@@ -1,6 +1,6 @@
 var fromSong, toSong;
 function unhideTo() {
-  $("#to").fadeIn(300).complete(function() {
+  $("#to").fadeIn(300, function() {
     $("#to").focus();
   });
 }
