@@ -56,6 +56,7 @@ class SongServer(object):
         def get_id(args):
             # if args['id'] in self.song_cache:
                 # return jsonify(**self.song_cache[args['id']])
+            topic = self.topics[args['id']].argmax()
             song = self.song_mapping[self.ids[args['id']]]
             aw = artwork.get_artwork(song)
             youtube_id = None
@@ -66,6 +67,7 @@ class SongServer(object):
                 'result': {
                     'id': args['id'],
                     'name': song[1],
+                    'genre': topic,
                     'artist': song[0],
                     'artwork': aw,
                     'youtube': youtube_id,
@@ -82,10 +84,11 @@ class SongServer(object):
         })
         def get_neighbors(args):
             _, neighbors = self.nbrs.kneighbors(self.topics[args['id']], n_neighbors=args['k'] + 1)
-            neighbors = neighbors[0, 1:]
+            neighbors = neighbors[0, 1:].tolist()
+            genres = [self.topics[n].argmax() for n in neighbors]
             return jsonify(**{
                 'status': 1,
-                'result': neighbors.tolist()
+                'result': zip(neighbors, genres)
             })
 
         @app.route('/api/get_song')
@@ -140,11 +143,12 @@ class SongServer(object):
                 rest = []
                 for d in end_distances:
                     rest.append(neighbors[d])
+            genres = [self.topics[n].argmax() for n in rest][:args['k']]
             return jsonify(**{
                 'status': 1,
                 'result': {
                     'next_id': chosen,
-                    'neighbors': rest[:args['k']]
+                    'neighbors': zip(rest[:args['k']], genres)
                 }
             })
 

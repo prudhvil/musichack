@@ -35,7 +35,8 @@ header {
   font-size: 6.00em;
   font-weight: 200;
   color: #fff;
-  margin-left:  250px;
+  text-align:center;
+  /*margin-left:  250px;*/
   height: 100px;
 }
 
@@ -92,7 +93,6 @@ input[type=text]
     color: #000;
     height: 35px;
     padding-left:10px;
-    margin-left: 250px;
  /*   margin-left: -15px;*/
     width: 350px;
 /*    z-index: 999;
@@ -140,10 +140,6 @@ input[type=text]
 #graph {
   width: 100%;
   height: 100vh;
-  border-color: #C1C1C1;
-  border-width: 2px;
-  border-style: solid;
-  border-radius: 20px;
 }
 
 .scrollable {
@@ -206,19 +202,43 @@ input[type=text]
 .tt-suggestion p {
   margin: 0;
 }
-.tooltipdialog {
-    width: 150px;
-    height: 150px;
-    background-color: rgba(229, 244, 255, 0.82);
-    border-radius: 20px;
-    padding: 5px;
-}
-.tooltipsong {
-  font-size: 14px;
-}
-.tooltipimage {
 
+.tooltip-item {
+  padding:10px;
+  border-radius: 10px;
+  background-color: white;
+  border-top: 2px solid #979797;
 }
+.tooltip-content {
+  margin-left: 115px;
+  word-wrap: break-word;
+}
+.tooltip-image-container {
+    float: left
+}
+.tooltip-image-container img {
+    display: block
+    width: 100px;
+    height: 100px;
+}
+.tooltip-item-container {
+    overflow: auto
+}
+.tooltip-name {
+  text-decoration: none;
+  color: #525252;
+  font-size: 15px;
+  word-wrap: break-word;
+}
+.tooltip-artist {
+  text-decoration: none;
+  font-size: 12px;
+}
+.tooltip-image {
+  width: 100px;
+  height: 100px;
+}
+
 .playlist-item {
   padding:10px;
   border-top: 2px solid #979797;
@@ -258,4 +278,7 @@ input[type=text]
 }
 #second {
    display: none;
+}
+#to {
+   margin-top: 20px;
 }

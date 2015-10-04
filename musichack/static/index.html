@@ -25,6 +25,33 @@
 </head>
 <body id="page-top">
 
+<script type="text/html" id="playlisttemplate">
+  <li class='playlist-item' data-link='youtube'>
+    <div class='playlist-item-container'>
+      <div class='playlist-image-container'>
+        <img class='playlist-image' data-src="artwork"/>
+      </div>
+      <div class='playlist-content'>
+        <div class='playlist-name' data-content="name"></div>
+        <div class='playlist-artist' data-content="artist"></div>
+      </div>
+    </div>
+  </li>
+</script>
+<script type="text/html" id="tooltiptemplate">
+  <div class='tooltip-item'>
+    <div class='tooltip-item-container'>
+      <div class='tooltip-image-container'>
+        <img class='tooltip-image' data-src="artwork"/>
+      </div>
+      <div class='tooltip-content'>
+        <div class='tooltip-name' data-content="name"></div>
+        <div class='tooltip-artist' data-content="artist"></div>
+      </div>
+    </div>
+  </li>
+</script>
+
 <div id="first">
 
   <div class="container-fluid">
@@ -39,8 +66,8 @@
         <div class="names explore">
           explore
         </div>	
-        <div class="inputBoxes explore">
-          <div class="col-sm-4" id="from">
+        <div class="inputBoxes">
+          <div class="col-sm-offset-4 col-sm-4" id="from">
             <input id='exploresong' class="typeahead" type="text"  placeholder="Starting with this song">
           </div>
         </div>
@@ -51,15 +78,21 @@
           travel
         </div>
 
-        <div class="inputBoxes travel pagination-centered">
+        <div class="inputBoxes pagination-centered">
 
-          <div class="col-sm-4" id="from">
-            <input id='fromsong' class="typeahead" type="text"  placeholder="Starting with this song">
+          <div class="col-sm-offset-4 col-sm-4" id="from">
+            <div class='row'>
+              <div id='from'>
+                <input id='fromsong' class="typeahead" type="text"  placeholder="Starting with this song">
+              </div>
+            </div>
+            <div class='row'>
+              <div id='to'>
+                <input id="tosong" class="typeahead" type="text" placeholder="And end with this song">
+              </div>
+            </div>
           </div>
 
-          <div class="col-sm-4" id="to" style="display:none">
-            <input id="tosong" class="typeahead" type="text" placeholder="And end with this song">
-          </div>
 
         </div>
 
@@ -88,19 +121,6 @@
       <div class="col-sm-3 col-md-2 sidebar">
         <div id='youtubeplayer'></div>
         <ul id='playlist' class="nav nav-sidebar">
-          <script type="text/html" id="playlisttemplate">
-  <li class='playlist-item' data-link='youtube'>
-              <div class='playlist-item-container'>
-                <div class='playlist-image-container'>
-                  <img class='playlist-image' data-src="artwork"/>
-                </div>
-                <div class='playlist-content'>
-                  <div class='playlist-name' data-content="name"></div>
-                  <div class='playlist-artist' data-content="artist"></div>
-                </div>
-              </div>
-            </li>
-          </script>
         </ul>
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

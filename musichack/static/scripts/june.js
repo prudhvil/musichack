@@ -18,6 +18,7 @@ $(document).ready(function() {
 
   var clearSongs = function() {
     songs.splice(0, songs.length);
+    $("#playlist").html("")
   }
 
   var getId = function(id, youtube, cb) {
@@ -75,6 +76,7 @@ $(document).ready(function() {
   });
 
   var loadAdventureGraph = function(start, end) {
+    clearSongs();
     $("#graph-header").text("travel");
     $("#graph-header").removeClass("explore");
     $("#graph-header").addClass("travel");
@@ -98,6 +100,7 @@ $(document).ready(function() {
 
   $('#tosong').bind('typeahead:autocompleted typeahead:selected', function(obj, datum, name) {
     toSong = datum;
+    console.log("SONGS", fromSong, toSong);
     loadAdventureGraph(fromSong.id, toSong.id);
   });
 
@@ -123,4 +126,5 @@ $(document).ready(function() {
     $("#second").hide()
     $("#first").show()
   });
+  $("#to").hide();
 });
