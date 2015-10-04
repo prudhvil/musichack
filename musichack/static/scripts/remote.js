@@ -3,9 +3,7 @@ var bestPictures = new Bloodhound({
   remote: {
     url: 'http://svikram.ucsd.edu/api/get_song?name=%QUERY',
     wildcard: '%QUERY',
-    ajax : {
-      dataType: 'jsonp'
-    },
+    dataType: 'jsonp',
     transform: function(obj) { return obj.result; },
   },
   identify: function(obj) { return obj.id },
