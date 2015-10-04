@@ -51,13 +51,16 @@ class SongServer(object):
         @jsonp
         @use_args({
             'id': fields.Int(required=True),
+            'youtube': fields.Bool(default=False)
         })
         def get_id(args):
-            if args['id'] in self.song_cache:
-                return jsonify(**self.song_cache[args['id']])
+            # if args['id'] in self.song_cache:
+                # return jsonify(**self.song_cache[args['id']])
             song = self.song_mapping[self.ids[args['id']]]
             aw = artwork.get_artwork(song)
-            youtube_id = artwork.get_video(song)
+            youtube_id = None
+            if args['youtube']:
+                youtube_id = artwork.get_video(song)
             result = {
                 'status': 1,
                 'result': {
@@ -68,7 +71,7 @@ class SongServer(object):
                     'youtube': youtube_id,
                 }
             }
-            self.song_cache[args['id']] = result
+            # self.song_cache[args['id']] = result
             return jsonify(**result);
 
         @app.route('/api/get_neighbors')

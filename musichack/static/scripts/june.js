@@ -6,7 +6,7 @@ function unhideTo() {
   });
 }
 
-function displayYoutube() {
+function displayYoutube(songs) {
   // Load the IFrame Player API code asynchronously.
   youtubeIds = songs.map(function(s) {return s.youtube});
   console.log(youtubeIds);
@@ -42,15 +42,19 @@ $('#to').bind('typeahead:autocompleted typeahead:selected', function(obj, datum,
 
   // TODO: make graph query
   Graph.start(fromSong, toSong, function(songId) {
-    $.getJSON("/api/get_id?id="+songId, {}, function(data) {
+    $.getJSON("/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
       songs.push(data.result);
       var html = '<div class="playlistSong row"><a href="http://www.youtube.com/watch?v='+data.result.youtube+'"><div class="col-lg-5"><img src="'+data.result.artwork['60']+'" height="80"> </div> <div class="col-lg-7"> <div class="songtitle">'+data.result.name+'</div> <div class="songartist">'+data.result.artist+'</div> </div></a></div>"';
       $("#sidebar").append(html);
       if (finished) {
-         displayYoutube();
+         displayYoutube(songs);
       }
      })
   }, function() {
     finished = true;
+  }, function(songId) {
+    $.getJSON("/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
+      displayYoutube([data.result])
+     })
   });
 });
