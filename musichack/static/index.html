@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="styles/main.css">
 		<link rel="stylesheet" href="styles/main_graph.css">
 		<link rel="stylesheet" href="styles/tipsy.css">
-		<link href="http://fonts.googleapis.com/css?family=Oswald:700|Raleway:400" rel="stylesheet" type="text/css">
+		<link href="http://fonts.googleapis.com/css?family=Oswald:700,400|Raleway:400,200" rel="stylesheet" type="text/css">
 		<!-- Fontawesome -->
 
 		<link rel="stylesheet" href="scripts/font-awesome/css/font-awesome.min.css">
@@ -27,32 +27,48 @@
 
 
 	    <div id="first">
-	    	<img src="img/logo.png" id="logo">
-			<header>tunepath</header>
-			<h4 class="map">map your music</h4>
 
-			<div class="container-fluid">
+		    <div class="container-fluid">
+		    	<header>
+			    	<img src="img/logo.png" id="logo">
+					<div class="title">tunepath</div>
+					<h4 class="map">map your music</h4>
+				</header>
+
 				<div class="row">
-					<div class="col-sm-4" id="from">
-						<input id='fromsong' class="typeahead" type="text"  placeholder="Starting with this song">
+					<div class="col-md-6">
+						<div class="names" id="explore">
+							explore
+						</div>	
+						<div class="inputBoxes" id="explore">
+							<div class="col-sm-4" id="from">
+								<input id='fromsong' class="typeahead" type="text"  placeholder="Starting with this song">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="names" id="playlist">
+							travel
+						</div>
+
+						<div class="inputBoxes pagination-centered" id="playlist">
+
+							<div class="col-sm-4" id="from">
+								<input id='fromsong' class="typeahead" type="text"  placeholder="Starting with this song">
+							</div>
+
+							<div class="col-sm-4" id="to" style="display:none">
+								<input id="tosong" class="typeahead" type="text" placeholder="And end with this song">
+							</div>
+
+						</div>
+
 					</div>
 				</div>
-				<div class="page-break"></div>
-				<div class="row">
 
-					<div class="col-sm-4" id="to" style="display:none">
-						<input id="tosong" class="typeahead" type="text" placeholder="And end with this song">
-					</div>
-				</div>	
-				<div class="row">
-					<div class="social">
-						<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://svikram.ucsd.edu/tunepath" data-count="none">Tweet</a>
-						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-					</div>
-				</div>
 			</div>
 
-			
 		</div>
 
 <!-- Header code -->
