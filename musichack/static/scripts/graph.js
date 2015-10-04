@@ -2,11 +2,14 @@ var COLORS = [[0.9677975592919913, 0.44127456009157356, 0.5358103155058701], [0.
 var Graph = (function() {
     var apiUrl = 'http://svikram.ucsd.edu';
 
+    var neighborSize = 3;
+    var expandProb = 0.3;
+    var tooltip = d3.select("#tooltip");
+    console.log(tooltip);
+
     var G = new jsnx.Graph(), startId, endId, currId,nextId, onDblClick;
     var onEnd;
     var onSong;
-    var tooltip;
-    tooltip = d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
     var delay = 100;
 
 
@@ -44,9 +47,10 @@ var Graph = (function() {
         //makeGetRequest('/api/get_neighbors?id='+currId+'&k=4',onNeighborsReceived,onFailure);
     }
 
-    var requestNeighbors = function(id) {
-        makeGetRequest('/api/get_neighbors?id='+id+'&k=3', function(data) {
-            graphNeighbors(id, data.result)
+    var requestNeighbors = function(id, prob) {
+      prob = prob || expandProb;
+        makeGetRequest('/api/get_neighbors?id='+id+'&k='+neighborSize, function(data) {
+            graphNeighbors(id, data.result, prob)
         }, onFailure)
     }
 
@@ -62,7 +66,7 @@ var Graph = (function() {
     var onFailure = function() {
           console.error('error fetching songs');
     }
-    var graphNeighbors = function(id, neighbors) {
+    var graphNeighbors = function(id, neighbors, prob) {
       var neighborsHelper = function() {
         var neighbor = neighbors.pop();
         nId = neighbor[0];
@@ -77,8 +81,8 @@ var Graph = (function() {
         }
         if (!G.hasEdge(id,nId)) G.addEdge(id,nId,{'width': 3, 'length': 100, 'color':'white'});
 
-        if (Math.random() > 0.9) {
-          requestNeighbors(nId);
+        if (Math.random() < prob) {
+          requestNeighbors(nId, prob / 3.0);
         }
 
         if(neighbors.length != 0)  {
@@ -91,21 +95,27 @@ var Graph = (function() {
 
     var addTipsy = function(nodeId) {
         d3.select("[nodeid='"+nodeId+"']").on("mouseover", function(d) {
+          console.log("Mousover", d)
           var x = d3.event.pageX, y = d3.event.pageY;
           makeGetRequest('/api/get_id?youtube=false&id='+nodeId, function(data) {
-            tooltip.transition().duration(100).style('opacity', 0.9);
+            tt = $("#tooltip");
+            tt.fadeTo(100, 0.9);
             artwork = data.result.artwork['100'] || '/img/no_album_art.png'
 
-            $(tooltip).loadTemplate($("#tooltiptemplate"), {
+            tt.loadTemplate($("#tooltiptemplate"), {
                 name: data.result.name,
                 artist: data.result.artist,
                 artwork: artwork,
             });
-            tooltip.style("left", x+"px").style("top", y+"px");
+            tt.css({
+                left: x+ "px"  ,
+                top: y+"px"
+            });
 
           }, onFailure);
         }).on("mouseout", function(d) {
-          tooltip.transition().duration(100).style('opacity', 0);
+            tt = $("#tooltip");
+            tt.fadeTo(100, 0.0);
         }).on("click", function(d) {
           d3.select(this).style('fill', 'white');
           fixNode(d.data.id);
@@ -135,7 +145,15 @@ var Graph = (function() {
       }
     }
 
+    var lucky = function(dblCb) {
+      expandProb = 0.7;
+      start = Math.floor(Math.random() * 200000);
+      explore({id:start}, dblCb, expandProb);
+    }
+
     var start = function(start, end, cb, endCb, dblCb) {
+        neighborSize= 3;
+        expandProb = 0.5;
         nextId = undefined;
         G.clear();
         onSong = cb;
@@ -161,14 +179,15 @@ var Graph = (function() {
     };
 
 
-    var explore = function(start,dblCb) {
+    var explore = function(start,dblCb, ep) {
+      neighborSize= 8;
+      expandProb = ep || 0.1;
       nextId = undefined;
       G.clear();
       onDblClick = dblCb;
       startId = start.id;
       onDblClick(startId);
       currId = startId;
-      //drawGraph();
       G.addNode(startId,{'radius': 20, 'id': startId, 'fill': '#a6e22e'});
       d3.select("[nodeid='"+startId+"']").each(function(d) {
         d.fixed = true;
@@ -217,6 +236,7 @@ var Graph = (function() {
 
     return {
         start: start,
+        lucky: lucky,
         explore: explore
     };
 

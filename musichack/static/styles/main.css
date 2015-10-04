@@ -6,6 +6,10 @@
  font-color:#fff;
 }
 
+#tooltip {
+  position: absolute;
+}
+
 body {
   background-color:#2C2A2B;
   height:100%;
@@ -50,10 +54,12 @@ header {
 
 .explore {
   color: #66D9EF;
+  margin-left: 30px;
 }
 
 .travel {
   color: #f92672;
+  /*margin-right: 28px;*/
 }
 
 h3 {
@@ -281,4 +287,22 @@ input[type=text]
 }
 #to {
    margin-top: 20px;
+}
+.stupidbutton {
+  margin-top: 20px;
+  width: 115%;
+  background-color: rgba(102, 217, 239, 0.37);
+  border-color: rgba(102, 217, 239, 0.50);
+}
+.stupidbutton:focus {
+  background-color: rgba(102, 217, 239, 0.37);
+  border-color: rgba(102, 217, 239, 0.50);
+}
+.stupidbutton:active {
+  background-color: rgba(102, 217, 239, 0.37);
+  border-color: rgba(102, 217, 239, 0.50);
+}
+.stupidbutton:hover {
+  background-color: rgba(102, 217, 239, 0.50);
+  border-color: rgba(102, 217, 239, 0.70);
 }

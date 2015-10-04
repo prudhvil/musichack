@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+  d3.select("body").append("div").attr("id", "tooltip").style("opacity", 0);
   var fromSong, toSong;
   var songs = []
   function unhideTo() {
@@ -108,7 +109,12 @@ $(document).ready(function() {
     loadExploreGraph(datum.id);
   });
 
+  $("#lucky").click(function() {
+    luckyGraph();
+  });
+
   var loadExploreGraph = function(start) {
+    clearSongs();
     $("#graph-header").text("explore");
     $("#graph-header").removeClass("travel");
     $("#graph-header").addClass("explore");
@@ -122,9 +128,24 @@ $(document).ready(function() {
     });
   }
 
+  var luckyGraph = function() {
+    clearSongs();
+    $("#graph-header").text("explore");
+    $("#graph-header").removeClass("travel");
+    $("#graph-header").addClass("explore");
+    $("#first").hide()
+    $("#second").show()
+    Graph.lucky(function(songId) {
+      $.getJSON("/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
+        loadYoutube([data.result])
+       })
+    });
+  }
+
   $("#home-link").click(function() {
+    $("#tooltip").hide();
     $("#second").hide()
     $("#first").show()
   });
-  $("#to").hide();
+  //$("#to").hide();
 });
