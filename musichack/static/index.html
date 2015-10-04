@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="scripts/d3/d3.min.js" charset="utf-8"></script>
+		<script src="scripts/d3/d3.js" charset="utf-8"></script>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="styles/main.css">
+		<link href="http://fonts.googleapis.com/css?family=Oswald:700|Raleway:100" rel="stylesheet" type="text/css">
+	    <!-- Bootstrap Core CSS -->
+	    <link rel="stylesheet" href="styles/bootstrap.min.css" type="text/css">
+	    <!-- Plugin CSS -->
+	    <link rel="stylesheet" href="styles/animate.min.css" type="text/css">
+
+		<title>TunePath</title>
+
+
+
+	</head>
+
+	<body id="page-top">
+
+	    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+	        <div class="container-fluid">
+
+	            <div class="navbar-header">
+	                <a class="navbar-brand page-scroll hidden" href="#page-top" id="logo">TP</a>
+	            </div>
+
+	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	                <ul class="nav navbar-nav navbar-right">
+	                    <li>
+	                        <a class="page-scroll" href="#about">examples</a>
+	                    </li>
+
+	                    <li>
+	                        <a class="page-scroll" href="#contact">about</a>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+	    </nav> 
+
+	    <div id="first">
+			<header>tunepath</header>
+			<h4 class="map">map your music</h4>
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-5" id="from">
+						<input id='fromsong' class="typeahead" type="text"  placeholder="Starting with this song">
+					</div>
+				</div>
+				<div class="page-break"></div>
+				<div class="row">
+
+					<div class="col-md-5" id="to" style="display:none">
+						<input id="tosong" class="typeahead" type="text" placeholder="And end with this song">
+					</div>
+				</div>	
+				<div class="row">
+					<div class="social">
+						<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://svikram.ucsd.edu/tunepath" data-count="none">Tweet</a>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+					</div>
+				</div>
+			</div>
+
+			
+		</div>
+
+<!-- Header code -->
+
+		<div id="second" class="hidden">
+			<div id="newHeader" class="row">
+			</div>
+		</div>
+
+<!-- Sidebar code -->
+
+		<div id="sidebar" class="hidden scrollable">
+
+			<div class="playlistSong row">
+				<div class="col-sm-5">
+					<img src="http://www.91x.com/wp-content/uploads/2015/06/california_burrito_blk_noflag_1024x1024.jpg" height="80">
+				</div>
+				
+				<div class="col-sm-5">
+					<div class="songtitle">
+					    California Burritos
+					</div>
+					<div class="songartist">
+					    Chuck Ragan
+					</div>
+				</div>	
+			</div>
+
+			<div class="playlistSong row">
+				<div class="col-sm-5">
+					<img src="http://www.91x.com/wp-content/uploads/2015/06/california_burrito_blk_noflag_1024x1024.jpg" height="80">
+				</div>
+				
+				<div class="col-sm-5">
+					<div class="songtitle">
+					    California Burritos
+					</div>
+					<div class="songartist">
+					    Chuck Ragan
+					</div>
+				</div>	
+			</div>
+
+			<div class="playlistSong row">
+				<div class="col-sm-5">
+					<img src="http://www.91x.com/wp-content/uploads/2015/06/california_burrito_blk_noflag_1024x1024.jpg" height="80">
+				</div>
+				
+				<div class="col-sm-5">
+					<div class="songtitle">
+					    California Burritos
+					</div>
+					<div class="songartist">
+					    Chuck Ragan
+					</div>
+				</div>	
+			</div>
+			
+			<div class="playlistSong row">
+				<div class="col-sm-5">
+					<img src="http://www.91x.com/wp-content/uploads/2015/06/california_burrito_blk_noflag_1024x1024.jpg" height="80">
+				</div>
+				
+				<div class="col-sm-5">
+					<div class="songtitle">
+					    California Burritos
+					</div>
+					<div class="songartist">
+					    Chuck Ragan
+					</div>
+				</div>	
+			</div>
+
+			<div class="playlistSong row">
+				<div class="col-sm-5">
+					<img src="http://www.91x.com/wp-content/uploads/2015/06/california_burrito_blk_noflag_1024x1024.jpg" height="80">
+				</div>
+				
+				<div class="col-sm-5">
+					<div class="songtitle">
+					    California Burritos
+					</div>
+					<div class="songartist">
+					    Chuck Ragan
+					</div>
+				</div>	
+			</div>
+
+			<div class="playlistSong row">
+				<div class="col-sm-5">
+					<img src="http://www.91x.com/wp-content/uploads/2015/06/california_burrito_blk_noflag_1024x1024.jpg" height="80">
+				</div>
+				
+				<div class="col-sm-5">
+					<div class="songtitle">
+					    California Burritos
+					</div>
+					<div class="songartist">
+					    Chuck Ragan
+					</div>
+				</div>	
+			</div>
+
+			<div class="playlistSong row">
+				<div class="col-sm-5">
+					<img src="http://www.91x.com/wp-content/uploads/2015/06/california_burrito_blk_noflag_1024x1024.jpg" height="80">
+				</div>
+				
+				<div class="col-sm-5">
+					<div class="songtitle">
+					    California Burritos
+					</div>
+					<div class="songartist">
+					    Chuck Ragan
+					</div>
+				</div>	
+			</div>
+
+			<div class="playlistSong row">
+				<div class="col-sm-5">
+					<img src="http://www.91x.com/wp-content/uploads/2015/06/california_burrito_blk_noflag_1024x1024.jpg" height="80">
+				</div>
+				
+				<div class="col-sm-5">
+					<div class="songtitle">
+					    California Burritos
+					</div>
+					<div class="songartist">
+					    Chuck Ragan
+					</div>
+				</div>	
+			</div>
+
+			<div class="playlistSong row">
+				<div class="col-sm-5">
+					<img src="http://www.91x.com/wp-content/uploads/2015/06/california_burrito_blk_noflag_1024x1024.jpg" height="80">
+				</div>
+				
+				<div class="col-sm-5">
+					<div class="songtitle">
+					    California Burritos
+					</div>
+					<div class="songartist">
+					    Chuck Ragan
+					</div>
+				</div>	
+			</div>
+
+		</div>
+
+<!-- Graph is below -->
+
+		<div id="graph" class="hidden container-fluid">
+			<div id="holder" class="row">
+				<div class="col-lg-10">
+					<div>
+						Graph goes here
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+	    <!-- jQuery -->
+	    <script src="scripts/jquery.js"></script>
+
+	    <!-- Bootstrap Core JavaScript -->
+	    <script src="scripts/bootstrap.min.js"></script>
+
+	    <!-- Plugin JavaScript -->
+	    <script src="scripts/jquery.easing.min.js"></script>
+	    <script src="scripts/jquery.fittext.js"></script>
+	    <script src="scripts/wow.min.js"></script>
+	    <script src="scripts/typeahead/bloodhound.js"></script>
+	    <script src="scripts/typeahead/typeahead.jquery.js"></script>
+
+	    <!-- Custom Theme JavaScript -->
+	   	<script src="scripts/remote.js"></script>
+
+	    <script src="scripts/creative.js"></script>
+	    <script src="scripts/june.js"></script>
+
+	</body>
+</html>

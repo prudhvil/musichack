@@ -5,6 +5,7 @@ from webargs import fields
 from webargs.flaskparser import use_args
 from trie import Trie
 from functools import wraps
+import artwork
 
 class SongServer(object):
 
@@ -28,7 +29,7 @@ class SongServer(object):
                 self.name_map[fixed_name].add((self.mid_to_id[mid], name, song[0]))
                 self.autocomplete.insert(fixed_name)
 
-        app = self.app = Flask(__name__)
+        app = self.app = Flask(__name__, static_url_path='', static_folder='static/')
         def jsonp(f):
             """Wraps JSONified output for JSONP"""
             @wraps(f)
@@ -41,16 +42,22 @@ class SongServer(object):
                     return f(*args, **kwargs)
             return decorated_function
 
+        @app.route('/')
+        def index():
+            return app.send_static_file('index.html')
+
         @app.route('/api/get_id/<int:id>')
         @jsonp
         def get_id(id):
             song = self.song_mapping[self.ids[id]]
+            aw = artwork.get_artwork(song)
             return jsonify(**{
                 'status': 1,
                 'result': {
                     'id': id,
                     'name': song[1],
                     'artist': song[0],
+                    'artwork': aw
                 }
             })
 
@@ -102,7 +109,7 @@ class SongServer(object):
             'k': fields.Int(default=10, required=False),
         })
         def get_next(args):
-            distances, neighbors = self.nbrs.kneighbors(self.topics[args['current_id']], n_neighbors=500)
+            distances, neighbors = self.nbrs.kneighbors(self.topics[args['current_id']], n_neighbors=100)
             neighbors = neighbors[0, 1:]
             if args['end_id'] in neighbors:
                 chosen = args['end_id']

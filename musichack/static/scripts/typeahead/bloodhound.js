@@ -612,6 +612,7 @@
         "use strict";
         function Remote(o) {
             this.url = o.url;
+            this.dataType = o.dataType;
             this.prepare = o.prepare;
             this.transform = o.transform;
             this.transport = new Transport({
@@ -625,7 +626,7 @@
                 return {
                     url: this.url,
                     type: "GET",
-                    dataType: "json"
+                    dataType: this.dataType || "json"
                 };
             },
             get: function get(query, cb) {
