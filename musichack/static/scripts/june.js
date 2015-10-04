@@ -42,7 +42,7 @@ $('#to').bind('typeahead:autocompleted typeahead:selected', function(obj, datum,
   scrollDown();
 
   // TODO: make graph query
-  Graph.start(fromSong, toSong, function(songId) {
+  Graph.explore(fromSong, toSong, function(songId) {
     $.getJSON("/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
       songs.push(data.result);
       var html = '<div class="playlistSong row"><a href="http://www.youtube.com/watch?v='+data.result.youtube+'"><div class="col-lg-5"><img src="'+data.result.artwork['60']+'" height="80"> </div> <div class="col-lg-7"> <div class="songtitle">'+data.result.name+'</div> <div class="songartist">'+data.result.artist+'</div> </div></a></div>"';

@@ -1,9 +1,7 @@
 var Graph = (function() {
-    var apiUrl = 'http://svikram.ucsd.edu';
+    var apiUrl = 'http://svikram.ucsd.edu'; 
 
-    var G, startId, endId, currId,nextId, onDblClick;
-    var onEnd;
-    var onSong;
+    var G, startId, endId, currId,nextId;
     var tooltip;
     var delay = 100;
 
@@ -17,12 +15,6 @@ var Graph = (function() {
            error: onFailure
        });
     };
-
-    var fixNode = function(id) {
-        d3.select("[nodeid='"+id+"']").each(function(d) {
-          d.fixed = true;
-        }) ;
-    }
 
     var makePostRequest = function(url, data, onSuccess, onFailure) {
         $.ajax({
@@ -42,6 +34,7 @@ var Graph = (function() {
     }
 
     var requestNeighbors = function(id) {
+      console.log("Requesting neighbors for ", id)
         makeGetRequest('/api/get_neighbors?id='+id+'&k=3', function(data) {
             graphNeighbors(id, data.result)
         }, onFailure)
@@ -66,12 +59,12 @@ var Graph = (function() {
           G.addNode(nId,{'fill': '#999', 'radius': 5, 'id': nId});
           addTipsy(nId);
         }
-        if (!G.hasEdge(id,nId)) G.addEdge(id,nId,{'width': 3, 'length': 100, 'color':'white'});
+        if (!G.hasEdge(id,nId)) G.addEdge(id,nId,{'width': 2, 'length': 100});
 
-        if (Math.random() > 0.9) {
+        if (Math.random() > 0.7) {
           requestNeighbors(nId);
         }
-
+        
         if(neighbors.length != 0)  {
           setTimeout(neighborsHelper, delay);
         }
@@ -83,59 +76,66 @@ var Graph = (function() {
     var addTipsy = function(nodeId) {
         d3.select("[nodeid='"+nodeId+"']").on("mouseover", function(d) {
           var x = d3.event.pageX, y = d3.event.pageY;
-          makeGetRequest('/api/get_id?youtube=false&id='+nodeId, function(data) {
-            tooltip.transition().duration(100).style('opacity', 0.9);
+          makeGetRequest('/api/get_id?id='+nodeId, function(data) {
+            tooltip.transition().duration(200).style('opacity', 0.9);
 
-            tooltip.html("<div class='tooltipdialog'><div class='tooltipsong'>"+data.result.name+"</div><div class='tooltipimage'><img src='"+data.result.artwork['100']+"'/></img></div></div>").
+            console.log("<div>"+data.result.name+"<img src='"+data.result.artwork['100']+"'/></img></div>");
+            tooltip.html("<div>"+data.result.name+"<img src='"+data.result.artwork['100']+"'/></img></div>").
             style("left", x+"px").style("top", y+"px");
+            console.log(tooltip, x, y);
 
           }, onFailure);
         }).on("mouseout", function(d) {
-          tooltip.transition().duration(100).style('opacity', 0);
+          tooltip.transition().duration(200).style('opacity', 0);
         }).on("click", function(d) {
-          d3.select(this).style('fill', '#ffe792');
-          fixNode(d.data.id);
+          console.log("Requesting neighbors of ", d.node)
           requestNeighbors(d.node);
-        }).on('dblclick', function(d) {
-          onDblClick(d.data.id);
         });
     }
 
     var graphNext = function(nextId) {
-      onSong(nextId);
-      if (nextId == endId) {
-        color = '#f92672'
-        size=20;
-      } else {
-        color = '#66d9ef'
-        size=15;
-      }
-      G.addNode(nextId,{'fill': color, 'radius': size, 'id': nextId});
+      G.addNode(nextId,{'fill': '#00CC00', 'radius': 10, 'id': nextId});
       addTipsy(nextId);
-      G.addEdge(currId,nextId,{'width': 6, 'length': 100, 'color':'#66d9ef'});
+      G.addEdge(currId,nextId,{'width': 6, 'length': 100});
       currId = nextId;
-      if (currId != endId) {
-        requestNext();
-      } else {
-        onEnd();
-      }
+      if (currId != endId) requestNext();
     }
 
-    var start = function(start, end, cb, endCb, dblCb) {
-        onSong = cb;
-        onEnd = endCb;
-        onDblClick = dblCb
-        startId = start.id;
-        endId = end.id;
-        G = new jsnx.Graph()
-        currId = startId;
-        tooltip = d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
+    var makeData = function() {
+      return [
+        {"word": "aasdfasdf", "count": 10},
+        {"word": "basd", "count": 20},
+        {"word": "casdf", "count": 5},
+        {"word": "djtr", "count": 17},
+        {"word": "e", "count": 30},
+        {"word": "f", "count": 50},
+        {"word": "grtj", "count": 37},
+        {"word": "hj", "count": 23},
+        {"word": "irtyjrtyryjryj", "count": 24},
+        {"word": "j", "count": 45}
+      ]
+    }
 
+    var start = function() {
+        G = new jsnx.Graph()
+        songId = 2;
+
+        var total = 0.0;
+        var data = [];
+        for (var i=0;i<100;i++) {
+          data.push({"word": "w"+i, "count": (i/2)});
+        }
+        for (var i=0;i<data.length;i++) {
+          total += data[i].count;
+        }
+        for (var i=0;i<data.length;i++) {
+          G.addNode(data[i].word,{'fill': '#FFA500', 'radius': 1000*(data[i].count)/total});
+        }
 
         jsnx.draw(G, {
-          element: '#canvas',
+          element: '#canvas',  
           weighted: false,
-          withLabels: false,
+          withLabels: true,
           nodeStyle: {
             'fill': function(d) {
                     return d.data.fill;
@@ -152,37 +152,23 @@ var Graph = (function() {
                     return d.data.mouseover;
                   },
           },
-          edgeStyle: {
+          layoutAttr: {
+            'charge': -150,
+            'linkDistance': 100
+          },
+          edgeStyle: { 
             'stroke-width': function(d) {
                     return d.data.width;
-                  },
+                  }, 
             'stroke-length': function(d) {
                     return d.data.length;
-                  },
-            'fill': function(d) {
-                    return d.data.color;
                   }
           }
         }, true);
-
-
-        G.addNode(startId,{'radius': 20, 'id': startId, 'fill': '#a6e22e'});
-        onSong(startId);
-        d3.select("[nodeid='"+startId+"']").each(function(d) {
-          d.fixed = true;
-          d.x = 0;
-          d.y = 0;
-        }) ;
-        addTipsy(startId);
-
-        requestNext();
     };
-
     
-
     return {
-        start: start,
-        explore: explore
+        start: start
     };
-
+    
 })();
