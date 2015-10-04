@@ -6,11 +6,47 @@ function unhideTo() {
   });
 }
 
-function displayYoutube(songs) {
+function loadYoutube(songs) {
   // Load the IFrame Player API code asynchronously.
   youtubeIds = songs.map(function(s) {return s.youtube});
-  console.log(youtubeIds);
-  $("#ytplayer").html('<iframe width="100%" src="http://www.youtube.com/embed/'+youtubeIds[0]+'?autoplay=1&playlist='+youtubeIds.slice(1).join(',')+'" frameborder="0" allowfullscreen></iframe>')
+  $("#youtubeplayer").html('<iframe width="100%" src="http://www.youtube.com/embed/'+youtubeIds[0]+'?autoplay=1&playlist='+youtubeIds.slice(1).join(',')+'" frameborder="0" allowfullscreen></iframe>')
+}
+
+var songs = []
+
+var clearSongs = function() {
+  songs.splice(0, songs.length);
+}
+
+var getId = function(id, youtube, cb) {
+  youtube = youtube || false;
+  $.ajax('/api/get_id', {
+    dataType: 'jsonp',
+    data: {
+      id: id,
+      youtube: youtube
+    }
+  }).done(function(data) {
+    cb(data.result);
+  })
+}
+
+var addSongToPlaylist = function(id, cb) {
+  getId(id, true, function(song) {
+    songs.push(song);
+    artwork = song.artwork['100'];
+    if (!artwork) {
+      artwork = "/img/no_album_art.png";
+    }
+    var elem = $("<div></div>").loadTemplate($("#playlisttemplate"), {
+      name: song.name,
+      artist: song.artist,
+      artwork: artwork,
+      youtube: "http://www.youtube.com/watch?v="+song.youtube,
+    });
+    $('#playlist').append(elem);
+    cb();
+  });
 }
 
 
@@ -36,26 +72,28 @@ $('#from').bind('typeahead:autocompleted typeahead:selected', function(obj, datu
   unhideTo();
 });
 
-$('#to').bind('typeahead:autocompleted typeahead:selected', function(obj, datum, name) {
+var loadAdventureGraph = function(start, end) {
   var finished = false;
-  toSong = datum;
-  scrollDown();
-
-  // TODO: make graph query
-  Graph.explore(fromSong, toSong, function(songId) {
-    $.getJSON("/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
-      songs.push(data.result);
-      var html = '<div class="playlistSong row"><a href="http://www.youtube.com/watch?v='+data.result.youtube+'"><div class="col-lg-5"><img src="'+data.result.artwork['60']+'" height="80"> </div> <div class="col-lg-7"> <div class="songtitle">'+data.result.name+'</div> <div class="songartist">'+data.result.artist+'</div> </div></a></div>"';
-      $("#sidebar").append(html);
+  Graph.start({id:start}, {id:end}, function(songId) {
+    addSongToPlaylist(songId, function() {
       if (finished) {
-         displayYoutube(songs);
+        loadYoutube(songs);
       }
-     })
+    });
   }, function() {
     finished = true;
   }, function(songId) {
     $.getJSON("/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
-      displayYoutube([data.result])
+      loadYoutube([data.result])
      })
   });
+}
+
+$('#to').bind('typeahead:autocompleted typeahead:selected', function(obj, datum, name) {
+  toSong = datum;
+  scrollDown();
+
+  loadAdventureGraph(fromSong.id, toSong.id);
 });
+
+loadAdventureGraph(3, 5);
