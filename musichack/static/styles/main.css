@@ -1,12 +1,18 @@
 @charset "utf-8";
 
+* {
+ font-family: Raleway;
+ font-size:12px;
+ font-color:#fff;
+}
 
 body {
   background-color:#2C2A2B;
-  font-family: Lato;
-  font-size:12px;
   height:100%;
+  width: 100%;
   line-height:20px;
+  position: fixed;
+
 }
 
 header {
@@ -18,14 +24,12 @@ header {
 }
 
 h3 {
-  font-family: Raleway;
   font-size: 1.60em;
   font-weight: 100;
   font-style: normal;
   color: #fff;
 }
 .map {
-  font-family: Raleway;
   font-size: 2.000em;
   font-weight: 100;
   font-style: normal;
@@ -63,7 +67,6 @@ input[type=text]
 
 #second
 {
-   height: 550px;
    margin-top: 10px;
    text-align: center;
    margin-left: 100px;
@@ -73,11 +76,42 @@ input[type=text]
   margin-top: 25px;
 }
 
-#id {
-  width: 300px;
-  padding: 25px;
-  border: 25px solid navy;
-  margin: 25px;
+#holder {
+  margin-top: 75px;
+  margin-left: 20px; 
+  margin-right: 230px; 
+  background-color: #000;
+  height: 80%;
+}
+
+#sidebar {
+  float: right;
+  color: #fff;
+  max-height: 80%;
+
+}
+
+#graph {
+  color: white;
+}
+
+.songtitle {
+  font-size: 10px;
+}
+
+.songartist {
+  font-size: 9px;
+}
+
+.playlistSong {
+  margin-bottom: 10px;
+}
+
+.scrollable {
+  height: 80%;
+  margin-top: 75px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /*NAVBAR CODE BELOW*/

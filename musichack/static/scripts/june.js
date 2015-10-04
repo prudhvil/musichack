@@ -9,6 +9,8 @@ function unhideTo() {
 function scrollDown() {
     $("div#second").removeClass("hidden");
     $("a#logo").removeClass("hidden");
+    $("div#graph").removeClass("hidden");
+    $("div#sidebar").removeClass("hidden");
     window.location = "#second";
 
     $("div#first").addClass("hidden");
