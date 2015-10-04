@@ -128,43 +128,11 @@ var Graph = (function() {
 
         startId = start.id;
         endId = end.id;
-        G = new jsnx.Graph()
         currId = startId;
         tooltip = d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
 
 
-        jsnx.draw(G, {
-          element: '#graph',
-          weighted: false,
-          withLabels: false,
-          nodeStyle: {
-            'fill': function(d) {
-                    return d.data.fill;
-                  },
-            'r': function(d) {
-                    return d.data.radius;
-                  }
-          },
-          nodeAttr: {
-            'nodeid': function(d) {
-                    return d.data.id;
-                  },
-            'mouseover': function(d) {
-                    return d.data.mouseover;
-                  },
-          },
-          edgeStyle: {
-            'stroke-width': function(d) {
-                    return d.data.width;
-                  },
-            'stroke-length': function(d) {
-                    return d.data.length;
-                  },
-            'fill': function(d) {
-                    return d.data.color;
-                  }
-          }
-        }, true);
+        drawGraph();
 
 
         G.addNode(startId,{'radius': 20, 'id': startId, 'fill': '#a6e22e'});
@@ -179,8 +147,64 @@ var Graph = (function() {
         requestNext();
     };
 
+
+    var explore = function(start,dblCb) {
+      onDblClick = dblCb;
+      startId = start.id;
+      onDblClick(startId);
+      currId = startId;
+      tooltip = d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
+      drawGraph();
+      G.addNode(startId,{'radius': 20, 'id': startId, 'fill': '#a6e22e'});
+      d3.select("[nodeid='"+startId+"']").each(function(d) {
+        d.fixed = true;
+        d.x = 0;
+        d.y = 0;
+      }) ;
+      addTipsy(startId);
+      requestNeighbors(startId);
+    }
+
+    var drawGraph = function() {
+      G = new jsnx.Graph();
+      jsnx.draw(G, {
+        element: '#graph',
+        weighted: false,
+        withLabels: false,
+        nodeStyle: {
+          'fill': function(d) {
+                  return d.data.fill;
+                },
+          'r': function(d) {
+                  return d.data.radius;
+                }
+        },
+        nodeAttr: {
+          'nodeid': function(d) {
+                  return d.data.id;
+                },
+          'mouseover': function(d) {
+                  return d.data.mouseover;
+                },
+        },
+        edgeStyle: {
+          'stroke-width': function(d) {
+                  return d.data.width;
+                },
+          'stroke-length': function(d) {
+                  return d.data.length;
+                },
+          'fill': function(d) {
+                  return d.data.color;
+                }
+        }
+      }, true);
+    }
+
     return {
-        start: start
+        start: start,
+        explore: explore
     };
+
 
 })();

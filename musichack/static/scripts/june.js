@@ -1,5 +1,6 @@
 var fromSong, toSong;
 var songs = []
+var apiUrl = 'http://svikram.ucsd.edu';
 function unhideTo() {
   $("#to").fadeIn(300, function() {
     $("#to").focus();
@@ -20,7 +21,7 @@ var clearSongs = function() {
 
 var getId = function(id, youtube, cb) {
   youtube = youtube || false;
-  $.ajax('/api/get_id', {
+  $.ajax(apiUrl+'/api/get_id', {
     dataType: 'jsonp',
     data: {
       id: id,
@@ -83,7 +84,7 @@ var loadAdventureGraph = function(start, end) {
   }, function() {
     finished = true;
   }, function(songId) {
-    $.getJSON("/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
+    $.getJSON(apiUrl+"/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
       loadYoutube([data.result])
      })
   });
@@ -96,4 +97,13 @@ $('#to').bind('typeahead:autocompleted typeahead:selected', function(obj, datum,
   loadAdventureGraph(fromSong.id, toSong.id);
 });
 
-loadAdventureGraph(3, 5);
+var loadExploreGraph = function(start) {
+  var finished = false;
+  Graph.explore({id:start}, function(songId) {
+    $.getJSON(apiUrl+"/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
+      loadYoutube([data.result])
+     })
+  });
+}
+
+loadExploreGraph(3);
