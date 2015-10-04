@@ -18,6 +18,12 @@ var Graph = (function() {
        });
     };
 
+    var fixNode = function(id) {
+        d3.select("[nodeid='"+id+"']").each(function(d) {
+          d.fixed = true;
+        }) ;
+    }
+
     var makePostRequest = function(url, data, onSuccess, onFailure) {
         $.ajax({
             type: 'POST',
@@ -78,6 +84,7 @@ var Graph = (function() {
         d3.select("[nodeid='"+nodeId+"']").on("mouseover", function(d) {
           var x = d3.event.pageX, y = d3.event.pageY;
           makeGetRequest('/api/get_id?id='+nodeId, function(data) {
+            var tooltip = $("<div></div>")
             tooltip.transition().duration(200).style('opacity', 0.9);
 
             tooltip.html("<div>"+data.result.name+"<img src='"+data.result.artwork['100']+"'/></img></div>").
@@ -87,14 +94,22 @@ var Graph = (function() {
         }).on("mouseout", function(d) {
           tooltip.transition().duration(200).style('opacity', 0);
         }).on("click", function(d) {
-          d3.select(this).style('fill', 'blue');
+          d3.select(this).style('fill', '#ffe792');
+          fixNode(d.node.id);
           requestNeighbors(d.node);
         });
     }
 
     var graphNext = function(nextId) {
       onSong(nextId);
-      G.addNode(nextId,{'fill': '#00CC00', 'radius': 20, 'id': nextId});
+      if (nextId == endId) {
+        color = '#f92672'
+        size=20;
+      } else {
+        color = '#66d9ef'
+        size=15;
+      }
+      G.addNode(nextId,{'fill': color, 'radius': size, 'id': nextId});
       addTipsy(nextId);
       G.addEdge(currId,nextId,{'width': 6, 'length': 100, 'color':'white'});
       currId = nextId;
@@ -149,7 +164,7 @@ var Graph = (function() {
         }, true);
 
 
-        G.addNode(startId,{'radius': 10, 'id': startId, 'fill': 'pink'});
+        G.addNode(startId,{'radius': 20, 'id': startId, 'fill': '#a6e22e'});
         onSong(startId);
         d3.select("[nodeid='"+startId+"']").each(function(d) {
           d.fixed = true;
