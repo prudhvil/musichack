@@ -8,6 +8,7 @@
 
 #tooltip {
   position: absolute;
+  pointer: none;
 }
 
 body {
@@ -70,13 +71,11 @@ h3 {
 }
 .map {
   font-size: 2.000em;
-  width: 30%;
   font-weight: 100;
   font-style: normal;
   color: #fd971f;
   padding-top: 35px;
   margin-right: 75px;
-  float: right;
 }
 
 #canvas {

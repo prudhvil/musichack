@@ -1,3 +1,9 @@
+function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+      }
 $(document).ready(function() {
 
   d3.select("body").append("div").attr("id", "tooltip").style("opacity", 0);
