@@ -41,7 +41,6 @@ header {
   font-weight: 200;
   color: #fff;
   text-align:center;
-  /*margin-left:  250px;*/
   height: 100px;
 }
 
@@ -60,7 +59,6 @@ header {
 
 .travel {
   color: #f92672;
-  /*margin-right: 28px;*/
 }
 
 h3 {
@@ -98,10 +96,7 @@ input[type=text]
     color: #000;
     height: 35px;
     padding-left:10px;
- /*   margin-left: -15px;*/
     width: 350px;
-/*    z-index: 999;
-    position: fixed;*/
   
 }
 
