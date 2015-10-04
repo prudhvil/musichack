@@ -13,15 +13,45 @@ body {
   line-height:20px;
   font-size:10px;
   position: fixed;
-
 }
 
 header {
+  text-align: center;
+  width: 35%;
+  height: 400px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.explore {
+  width: 40%;
+  float: left;
+  border-color: #fff;
+  border-style: solid;
+}
+
+.title {
   font-family: Oswald;
-  font-size: 7.00em;
+  font-size: 10.00em;
   font-weight: 700;
-  font-style: normal;
   color: #fff;
+}
+
+.names {
+  font-family: Raleway;
+  font-size: 6.00em;
+  font-weight: 200;
+  color: #fff;
+  margin-left:  250px;
+  height: 100px;
+}
+
+#explore {
+  color: #66D9EF;
+}
+
+#playlist {
+  color: #f92672;
 }
 
 h3 {
@@ -32,10 +62,13 @@ h3 {
 }
 .map {
   font-size: 2.000em;
+  width: 30%;
   font-weight: 100;
   font-style: normal;
-  color: #FF66A3;
+  color: #fd971f;
   padding-top: 35px;
+  margin-right: 75px;
+  float: right;
 }
 
 #canvas {
@@ -44,12 +77,6 @@ h3 {
 }
 .fa {
   color: #fff;
-}
-
-#first {
-  margin-left: 20em;
-  margin-top: 10em;
-
 }
 
 .jsnx {
@@ -64,10 +91,11 @@ input[type=text]
     color: #000;
     height: 35px;
     padding-left:10px;
-    margin-left: -15px;
+    margin-left: 250px;
+ /*   margin-left: -15px;*/
     width: 350px;
-    z-index: 999;
-    position: fixed;
+/*    z-index: 999;
+    position: fixed;*/
   
 }
 
@@ -117,18 +145,6 @@ input[type=text]
   border-radius: 20px;
 }
 
-.songtitle {
-  font-size: 16px;
-}
-
-.songartist {
-  font-size: 14px;
-}
-
-.playlistSong {
-  margin-bottom: 10px;
-}
-
 .scrollable {
   height: 80%;
   margin-top: 75px;
@@ -142,28 +158,7 @@ input[type=text]
   margin-left: 20px;
 }
 
-/*NAVBAR CODE BELOW*/
 
-.navbar-default {
-    background-color: transparent;
-    -webkit-transition: all .35s;
-    -moz-transition: all .35s;
-    transition: all .35s;
-}
-
-.navbar-default  {
-  font-family: Raleway;
-}
-
-.navbar-brand:hover,
-.navbar-brand:focus {
-    color: #fff;
-}
-
-.navbar-brand:hover,
-.navbar-brand:focus {
-    color: #fff;
-}
 
 .tt-query {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
