@@ -106,8 +106,8 @@ input[type=text]
 }
 
 #graph {
-  color: white;
-  height:800px;
+  width: 100%;
+  height: 100vh;
 }
 
 .songtitle {
@@ -209,4 +209,25 @@ input[type=text]
 }
 .tooltipimage {
 
+}
+.playlist-item {
+  padding:10px;
+}
+.playlist-item:hover {
+  background-color: gray;
+  padding:10px;
+}
+.playlist-content {
+  margin-left: 20px;
+}
+.playlist-image-container {
+    float: left
+}
+.playlist-image-container img {
+    display: block
+    width: 100px;
+    height: 100px;
+}
+.playlist-item-container {
+    overflow: auto
 }
