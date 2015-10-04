@@ -11,6 +11,7 @@ body {
   height:100%;
   width: 100%;
   line-height:20px;
+  font-size:10px;
   position: fixed;
 
 }
@@ -39,6 +40,9 @@ h3 {
 
 #canvas {
    height: 100%;
+ }
+.fa {
+  color: #fff;
 }
 
 #first {
@@ -52,7 +56,7 @@ input[type=text]
     background-color: #fff;
     border:solid 2px #fff;
     font-family: Raleway;
-    color: #979797;
+    color: #000;
     height: 35px;
     padding-left:10px;
     margin-left: -15px;
@@ -61,7 +65,7 @@ input[type=text]
 }
 
 .page-break {
-  height: 150px;
+  height: 50px;
 }
 
 .hidden
@@ -149,7 +153,7 @@ input[type=text]
 }
 
 .tt-hint {
-  color: #999
+  color: #000
 }
 
 .tt-menu {
@@ -157,8 +161,7 @@ input[type=text]
   margin: 12px 0;
   padding: 8px 0;
   background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid #fff;
   -webkit-border-radius: 8px;
      -moz-border-radius: 8px;
           border-radius: 8px;
@@ -169,19 +172,19 @@ input[type=text]
 
 .tt-suggestion {
   padding: 3px 20px;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 12px;
+  line-height: 15px;
 }
 
 .tt-suggestion:hover {
   cursor: pointer;
   color: #fff;
-  background-color: #0097cf;
+  background-color: #FF66A3;
 }
 
 .tt-suggestion.tt-cursor {
   color: #fff;
-  background-color: #0097cf;
+  background-color: #FF66A3;
 
 }
 

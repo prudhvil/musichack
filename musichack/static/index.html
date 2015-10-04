@@ -9,6 +9,9 @@
 		<link rel="stylesheet" href="styles/main_graph.css">
 		<link rel="stylesheet" href="styles/tipsy.css">
 		<link href="http://fonts.googleapis.com/css?family=Oswald:700|Raleway:100" rel="stylesheet" type="text/css">
+		<!-- Fontawesome -->
+
+		<link rel="stylesheet" href="scripts/font-awesome/css/font-awesome.min.css">
 	    <!-- Bootstrap Core CSS -->
 	    <link rel="stylesheet" href="styles/bootstrap.min.css" type="text/css">
 	    <!-- Plugin CSS -->
@@ -38,6 +41,11 @@
 	                    <li>
 	                        <a class="page-scroll" href="#contact">about</a>
 	                    </li>
+	                    <li>
+	                    	<div id="refresh" class="col-sm-2">
+								<i class="fa fa-reply"></i>
+							</div>
+	                    </li>
 	                </ul>
 	            </div>
 	        </div>
@@ -49,14 +57,14 @@
 
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-md-5" id="from">
+					<div class="col-sm-4" id="from">
 						<input id='fromsong' class="typeahead" type="text"  placeholder="Starting with this song">
 					</div>
 				</div>
 				<div class="page-break"></div>
 				<div class="row">
 
-					<div class="col-md-5" id="to" style="display:none">
+					<div class="col-sm-4" id="to" style="display:none">
 						<input id="tosong" class="typeahead" type="text" placeholder="And end with this song">
 					</div>
 				</div>	
@@ -74,8 +82,7 @@
 <!-- Header code -->
 
 		<div id="second" class="hidden">
-			<div id="newHeader" class="row">
-			</div>
+			
 		</div>
 
 <!-- Sidebar code -->
@@ -126,7 +133,7 @@
 					</div>
 				</div>	
 			</div>
-			
+
 			<div class="playlistSong row">
 				<div class="col-sm-5">
 					<img src="http://www.91x.com/wp-content/uploads/2015/06/california_burrito_blk_noflag_1024x1024.jpg" height="80">

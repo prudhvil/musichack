@@ -16,8 +16,9 @@ function scrollDown() {
     $("div#first").addClass("hidden");
     $("div#fakeNav").removeClass("hidden");
 
-    $("div#from").detach().appendTo('#second');
-    $("div#to").detach().appendTo('#second');
+    
+    $("div#to").detach().prependTo('#second');
+    $("div#from").detach().prependTo('#second');
 
 }
 
