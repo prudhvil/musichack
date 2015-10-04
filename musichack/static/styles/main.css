@@ -206,3 +206,16 @@ input[type=text]
 .tt-suggestion p {
   margin: 0;
 }
+.tooltipdialog {
+    width: 150px;
+    height: 150px;
+    background-color: rgba(229, 244, 255, 0.82);
+    border-radius: 20px;
+    padding: 5px;
+}
+.tooltipsong {
+  font-size: 14px;
+}
+.tooltipimage {
+
+}

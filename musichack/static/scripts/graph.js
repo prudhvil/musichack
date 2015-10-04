@@ -1,7 +1,7 @@
 var Graph = (function() {
     var apiUrl = 'http://svikram.ucsd.edu';
 
-    var G, startId, endId, currId,nextId;
+    var G, startId, endId, currId,nextId, onDblClick;
     var onEnd;
     var onSong;
     var tooltip;
@@ -66,9 +66,9 @@ var Graph = (function() {
           G.addNode(nId,{'fill': '#999', 'radius': 5, 'id': nId});
           addTipsy(nId);
         }
-        if (!G.hasEdge(id,nId)) G.addEdge(id,nId,{'width': 2, 'length': 100, 'color':'white'});
+        if (!G.hasEdge(id,nId)) G.addEdge(id,nId,{'width': 3, 'length': 100, 'color':'white'});
 
-        if (Math.random() > 0.7) {
+        if (Math.random() > 0.9) {
           requestNeighbors(nId);
         }
 
@@ -83,20 +83,21 @@ var Graph = (function() {
     var addTipsy = function(nodeId) {
         d3.select("[nodeid='"+nodeId+"']").on("mouseover", function(d) {
           var x = d3.event.pageX, y = d3.event.pageY;
-          makeGetRequest('/api/get_id?id='+nodeId, function(data) {
-            var tooltip = $("<div></div>")
-            tooltip.transition().duration(200).style('opacity', 0.9);
+          makeGetRequest('/api/get_id?youtube=false&id='+nodeId, function(data) {
+            tooltip.transition().duration(100).style('opacity', 0.9);
 
-            tooltip.html("<div>"+data.result.name+"<img src='"+data.result.artwork['100']+"'/></img></div>").
+            tooltip.html("<div class='tooltipdialog'><div class='tooltipsong'>"+data.result.name+"</div><div class='tooltipimage'><img src='"+data.result.artwork['100']+"'/></img></div></div>").
             style("left", x+"px").style("top", y+"px");
 
           }, onFailure);
         }).on("mouseout", function(d) {
-          tooltip.transition().duration(200).style('opacity', 0);
+          tooltip.transition().duration(100).style('opacity', 0);
         }).on("click", function(d) {
           d3.select(this).style('fill', '#ffe792');
-          fixNode(d.node.id);
+          fixNode(d.data.id);
           requestNeighbors(d.node);
+        }).on('dblclick', function(d) {
+          onDblClick(d.data.id);
         });
     }
 
@@ -111,7 +112,7 @@ var Graph = (function() {
       }
       G.addNode(nextId,{'fill': color, 'radius': size, 'id': nextId});
       addTipsy(nextId);
-      G.addEdge(currId,nextId,{'width': 6, 'length': 100, 'color':'white'});
+      G.addEdge(currId,nextId,{'width': 6, 'length': 100, 'color':'#66d9ef'});
       currId = nextId;
       if (currId != endId) {
         requestNext();
@@ -120,9 +121,10 @@ var Graph = (function() {
       }
     }
 
-    var start = function(start, end, cb, endCb) {
+    var start = function(start, end, cb, endCb, dblCb) {
         onSong = cb;
         onEnd = endCb;
+        onDblClick = dblCb
         startId = start.id;
         endId = end.id;
         G = new jsnx.Graph()
