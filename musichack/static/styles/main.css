@@ -227,7 +227,8 @@ input[type=text]
   padding:10px;
 }
 .playlist-content {
-  margin-left: 20px;
+  margin-left: 115px;
+  word-wrap: break-word;
 }
 .playlist-image-container {
     float: left
@@ -239,4 +240,18 @@ input[type=text]
 }
 .playlist-item-container {
     overflow: auto
+}
+.playlist-name {
+  text-decoration: none;
+  color: #525252;
+  font-size: 15px;
+  word-wrap: break-word;
+}
+.playlist-artist {
+  text-decoration: none;
+  font-size: 12px;
+}
+.playlist-image {
+  width: 100px;
+  height: 100px;
 }

@@ -40,16 +40,17 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
+      <div id='youtubeplayer'></div>
       <ul id='playlist' class="nav nav-sidebar">
         <script type="text/html" id="playlisttemplate">
           <li class='playlist-item' data-link='youtube'>
             <div class='playlist-item-container'>
               <div class='playlist-image-container'>
-                <img data-src="artwork"/>
+                <img class='playlist-image' data-src="artwork"/>
               </div>
               <div class='playlist-content'>
-                <div data-content="name"></div>
-                <div data-content="artist"></div>
+                <div class='playlist-name' data-content="name"></div>
+                <div class='playlist-artist' data-content="artist"></div>
               </div>
             </div>
           </li>

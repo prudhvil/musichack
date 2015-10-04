@@ -6,11 +6,10 @@ function unhideTo() {
   });
 }
 
-function displayYoutube(songs) {
+function loadYoutube(songs) {
   // Load the IFrame Player API code asynchronously.
   youtubeIds = songs.map(function(s) {return s.youtube});
-  console.log(youtubeIds);
-  $("#ytplayer").html('<iframe width="100%" src="http://www.youtube.com/embed/'+youtubeIds[0]+'?autoplay=1&playlist='+youtubeIds.slice(1).join(',')+'" frameborder="0" allowfullscreen></iframe>')
+  $("#youtubeplayer").html('<iframe width="100%" src="http://www.youtube.com/embed/'+youtubeIds[0]+'?autoplay=1&playlist='+youtubeIds.slice(1).join(',')+'" frameborder="0" allowfullscreen></iframe>')
 }
 
 var songs = []
@@ -32,16 +31,21 @@ var getId = function(id, youtube, cb) {
   })
 }
 
-var addSongToPlaylist = function(id) {
+var addSongToPlaylist = function(id, cb) {
   getId(id, true, function(song) {
     songs.push(song);
+    artwork = song.artwork['100'];
+    if (!artwork) {
+      artwork = "/img/no_album_art.png";
+    }
     var elem = $("<div></div>").loadTemplate($("#playlisttemplate"), {
       name: song.name,
       artist: song.artist,
-      artwork: song.artwork['100'],
+      artwork: artwork,
       youtube: "http://www.youtube.com/watch?v="+song.youtube,
     });
     $('#playlist').append(elem);
+    cb();
   });
 }
 
@@ -71,12 +75,16 @@ $('#from').bind('typeahead:autocompleted typeahead:selected', function(obj, datu
 var loadAdventureGraph = function(start, end) {
   var finished = false;
   Graph.start({id:start}, {id:end}, function(songId) {
-    addSongToPlaylist(songId);
+    addSongToPlaylist(songId, function() {
+      if (finished) {
+        loadYoutube(songs);
+      }
+    });
   }, function() {
     finished = true;
   }, function(songId) {
     $.getJSON("/api/get_id?callback=?&youtube=true&id="+songId, {}, function(data) {
-      displayYoutube([data.result])
+      loadYoutube([data.result])
      })
   });
 }
